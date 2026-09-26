@@ -50,6 +50,7 @@ export const translations = {
     rings: "Rings", none: "-- None --",
     addRing: "+ Ring",
     statuses: "Statuses", ring: "Ring", addStatus: "Add status",
+    dupSegment: "Duplicate as segment", dupRing: "Duplicate as ring",
     vision: "Vision", visionRange: "Range:",
     tokenDelete: "Delete",
     chooseColor: "Choose color", resetColor: "Reset color",
