@@ -609,6 +609,22 @@ export const coreMethods = {
         if(t.rings[ringIdx].segments.length === 0) t.rings.splice(ringIdx, 1);
         this.sync();
     },
+    // Dupliziert einen Status als weiteres Segment im selben Ring (max. 8 pro Ring).
+    duplicateStatusAsSegment(t, ringIdx, segIdx) {
+        if(!t.rings || !t.rings[ringIdx] || !t.rings[ringIdx].segments) return;
+        const seg = t.rings[ringIdx].segments[segIdx];
+        if(!seg || t.rings[ringIdx].segments.length >= 8) return;
+        t.rings[ringIdx].segments.splice(segIdx + 1, 0, { color: seg.color, text: seg.text });
+        this.sync();
+    },
+    // Dupliziert einen Status als eigenen neuen Ring (max. 4 Ringe).
+    duplicateStatusAsRing(t, ringIdx, segIdx) {
+        if(!t.rings) t.rings = [];
+        const seg = t.rings[ringIdx] && t.rings[ringIdx].segments && t.rings[ringIdx].segments[segIdx];
+        if(!seg || t.rings.length >= 4) return;
+        t.rings.push({ segments: [{ color: seg.color, text: seg.text }] });
+        this.sync();
+    },
     removeTokenRing(t, index) {
         if(t.rings && t.rings[index]) { t.rings.splice(index, 1); this.sync(); }
     },
