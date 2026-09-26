@@ -753,8 +753,11 @@ def run_cv_loop(loop_ref):
         
         left_view = frame.copy()
         
-        # Bugfix: Move the grace period check AFTER left_view is defined
-        if time.time() - last_camera_success_time < 3.0:
+        # Bugfix: Move the grace period check AFTER left_view is defined.
+        # Verzögerung beim Start/Kamerakontakt: Kameras müssen erst die Belichtung einstellen,
+        # sonst werden in der ersten Sekunden nicht-existente Blobs erkannt.
+        CAMERA_SETTLE_SECONDS = 5.0
+        if time.time() - last_camera_success_time < CAMERA_SETTLE_SECONDS:
             blobs = {}
             new_ids = []
             lost_ids = []
