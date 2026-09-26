@@ -89,6 +89,8 @@ input[type="range"] { padding: 0; height: 10px; width: 100%; }
 .token-status-row { background: #222; padding: 3px; border-radius: 3px; margin-bottom: 2px; }
 .token-status-row:last-child { margin-bottom: 0; }
 .token-status-row.single { margin-bottom: 0; }
+/* Kompakte Status-Aktionsbuttons (Duplizieren/Löschen) */
+.status-action { flex: 0 0 auto !important; width: 24px !important; height: 24px !important; padding: 0 !important; font-size: 0.8em !important; border-radius: 3px !important; }
 /* Größere "Status"-Überschrift */
 .token-status-title { font-size: 0.9em !important; display: flex; align-items: center; justify-content: space-between; }
 /* Grün hervorgehobene + Buttons für Status/Ring */
