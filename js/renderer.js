@@ -1437,6 +1437,7 @@ export class GameRenderer {
         const ringWidth = this.scene.ring_thickness || 10;
         const gap = 4; // fester Freiraum zwischen Ringen (unabhängig von der Ringdicke)
         const baseRadius = (token.size / 2) + 6;
+        if(!container._ringTextures) container._ringTextures = [];
         token.rings.forEach((ring, idx) => {
              const centerR = baseRadius + idx * (ringWidth + gap) + ringWidth/2;
              const segments = ring.segments || [{ color: '#2a2a2a', text: '' }];
@@ -1446,6 +1447,7 @@ export class GameRenderer {
              // Ein Canvas + ein Sprite pro Ring
              const { canvas, scale } = this.buildRingCanvas(ring, innerR, outerR);
              const tex = PIXI.Texture.from(canvas);
+             container._ringTextures.push(tex);
              const sprite = new PIXI.Sprite(tex);
              sprite.anchor.set(0.5);
              sprite.scale.set(1 / scale);
