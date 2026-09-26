@@ -1369,15 +1369,17 @@ export class GameRenderer {
         }
     }
 
-    // Hilfsfunktion: Helligkeit eines Hex-Farbwerts anpassen (+ = heller, - = dunkler)
+    // Hilfsfunktion: Helligkeit eines Hex-Farbwerts anpassen (+ = heller, - = dunkler).
+    // Gibt einen gültigen CSS-Farbwert mit '#'-Präfix zurück (für addColorStop etc.).
     shadeColor(hex, percent) {
-        const c = hex.replace('#','');
+        const c = (hex || '#000000').replace('#','');
         const num = parseInt(c.length === 3 ? c.split('').map(x=>x+x).join('') : c, 16);
+        if (isNaN(num)) return '#000000';
         const amt = Math.round(2.55 * percent);
         const R = Math.min(255, Math.max(0, (num >> 16) + amt));
         const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amt));
         const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
-        return (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
     }
 
     // Baut EIN Canvas für einen Ring (alle Segmente) mit glattem radialem Bevel.
