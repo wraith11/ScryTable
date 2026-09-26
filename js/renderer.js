@@ -1380,52 +1380,56 @@ export class GameRenderer {
         return (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
     }
 
-    // Zeichnet einen Ring (Kreis oder Bogensegment) mit kompaktem Bevel.
-    // Basis-Plateau + schmale helle Innen-/dunkle Außenrampe. Kurzseiten bleiben glatt.
-    drawRingSegment(container, cx, cy, innerR, outerR, startAngle, endAngle, color) {
-        const steps = 64;
-        const col = color || '#2a2a2a';
-        const buildPoly = (ri, ro, a0, a1) => {
-            const pts = [];
-            for(let i=0; i<=steps; i++) {
-                const a = a0 + (a1-a0) * (i/steps);
-                pts.push(cx + Math.cos(a)*ro, cy + Math.sin(a)*ro);
-            }
-            for(let i=steps; i>=0; i--) {
-                const a = a0 + (a1-a0) * (i/steps);
-                pts.push(cx + Math.cos(a)*ri, cy + Math.sin(a)*ri);
-            }
-            return pts;
-        };
+    // Baut EIN Canvas für einen Ring (alle Segmente) mit glattem radialem Bevel.
+    // Der radial verläufende Farbübergang (hell innen → dunkel außen) wirkt an allen
+    // Kanten – auch an den Segment-Schnittkanten → jedes Segment wirkt wie ein eigenes Objekt.
+    // Rückgabe: { canvas, scale } – scale = Auflösungsfaktor (Canvas-Pixel pro Welt-Pixel).
+    buildRingCanvas(ring, innerR, outerR) {
+        const segments = ring.segments || [{ color: '#2a2a2a', text: '' }];
         const thickness = outerR - innerR;
-        const colInt = parseInt(col.replace('#',''), 16);
+        const centerR = (innerR + outerR) / 2;
+        const scale = Math.max(1, Math.min(4, (this.world ? this.world.scale.x : 1) * 2));
+        const pad = Math.ceil(thickness * 0.3) + 2;
+        const size = Math.ceil((outerR + pad) * 2 * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(scale, 0, 0, scale, size/2, size/2);
 
-        // Kompakter Bevel: breites Plateau in Ringfarbe + schmale Rampen an den Kanten.
-        const rimFrac = 0.22; // Anteil der Ringbreite für Innen-/Außenrampe
-        // 1) Basis-Plateau (Mitte)
-        const plateauIn = innerR + thickness * rimFrac;
-        const plateauOut = outerR - thickness * rimFrac;
-        const plateau = new PIXI.Graphics();
-        plateau.beginFill(colInt, 1.0);
-        plateau.drawPolygon(buildPoly(plateauIn, plateauOut, startAngle, endAngle));
-        plateau.endFill();
-        container.addChild(plateau);
+        const drawSegment = (a0, a1, color) => {
+            const col = color || '#2a2a2a';
+            const light = this.shadeColor(col, 46);
+            const dark = this.shadeColor(col, -46);
+            const grad = ctx.createRadialGradient(0, 0, innerR, 0, 0, outerR);
+            grad.addColorStop(0, light);
+            grad.addColorStop(0.28, this.shadeColor(col, 18));
+            grad.addColorStop(0.5, col);
+            grad.addColorStop(0.72, this.shadeColor(col, -10));
+            grad.addColorStop(1, dark);
+            ctx.beginPath();
+            ctx.arc(0, 0, outerR, a0, a1);
+            ctx.arc(0, 0, innerR, a1, a0, true);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+        };
 
-        // 2) Helle Innenrampe (Glanz)
-        const lightCol = parseInt(this.shadeColor(col, 42).replace('#',''), 16);
-        const innerRim = new PIXI.Graphics();
-        innerRim.beginFill(lightCol, 1.0);
-        innerRim.drawPolygon(buildPoly(innerR, plateauIn, startAngle, endAngle));
-        innerRim.endFill();
-        container.addChild(innerRim);
-
-        // 3) Dunkle Außenrampe (Schatten)
-        const darkCol = parseInt(this.shadeColor(col, -38).replace('#',''), 16);
-        const outerRim = new PIXI.Graphics();
-        outerRim.beginFill(darkCol, 1.0);
-        outerRim.drawPolygon(buildPoly(plateauOut, outerR, startAngle, endAngle));
-        outerRim.endFill();
-        container.addChild(outerRim);
+        if (segments.length === 1) {
+            // Voller Ring
+            drawSegment(0, Math.PI * 2, segments[0].color || '#2a2a2a');
+        } else {
+            // Segmentierter Ring: Bogenstücke mit Lücke
+            const segGap = 0.09;
+            const totalAngle = Math.PI * 2;
+            const segAngle = (totalAngle - segments.length * segGap) / segments.length;
+            let startA = -Math.PI / 2;
+            segments.forEach((seg, si) => {
+                const a0 = startA + si * (segAngle + segGap);
+                const a1 = a0 + segAngle;
+                drawSegment(a0, a1, seg.color || '#2a2a2a');
+            });
+        }
+        return { canvas, scale };
     }
 
     drawTokenRings(container, token) {
@@ -1438,28 +1442,32 @@ export class GameRenderer {
              const segments = ring.segments || [{ color: '#2a2a2a', text: '' }];
              const innerR = centerR - ringWidth/2;
              const outerR = centerR + ringWidth/2;
+
+             // Ein Canvas + ein Sprite pro Ring
+             const { canvas, scale } = this.buildRingCanvas(ring, innerR, outerR);
+             const tex = PIXI.Texture.from(canvas);
+             const sprite = new PIXI.Sprite(tex);
+             sprite.anchor.set(0.5);
+             sprite.scale.set(1 / scale);
+             container.addChild(sprite);
+
+             // Text
              if(segments.length === 1) {
-                 // Einzelner Status → voller Ring mit doppeltem Text (von beiden Seiten lesbar)
-                 this.drawRingSegment(container, 0, 0, innerR, outerR, 0, Math.PI*2, segments[0].color || '#000000');
                  if(segments[0].text) {
                      this.drawCurvedText(container, segments[0].text, centerR, 0, 0xffffff, ringWidth, false);
                      this.drawCurvedText(container, segments[0].text, centerR, Math.PI, 0xffffff, ringWidth, false);
                  }
              } else {
-                 // Segmentierter Ring: N Bogenstücke mit Abstand, Text einmal pro Segment
-                 const segGap = 0.09; // radiale Lücke zwischen Segmenten
+                 const segGap = 0.09;
                  const totalAngle = Math.PI * 2;
                  const segAngle = (totalAngle - segments.length * segGap) / segments.length;
-                 let startA = -Math.PI / 2; // oben starten
+                 let startA = -Math.PI / 2;
                  segments.forEach((seg, si) => {
+                     if(!seg.text) return;
                      const a0 = startA + si * (segAngle + segGap);
                      const a1 = a0 + segAngle;
-                     this.drawRingSegment(container, 0, 0, innerR, outerR, a0, a1, seg.color || '#000000');
-                     if(seg.text) {
-                         const midA = (a0 + a1) / 2;
-                         // maxAngle = Segmentwinkel → Text wird an die verfügbare Fläche gefittet
-                         this.drawCurvedText(container, seg.text, centerR, midA, 0xffffff, ringWidth, true, segAngle);
-                     }
+                     const midA = (a0 + a1) / 2;
+                     this.drawCurvedText(container, seg.text, centerR, midA, 0xffffff, ringWidth, true, segAngle);
                  });
              }
         });
