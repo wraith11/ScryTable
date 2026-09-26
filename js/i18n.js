@@ -138,6 +138,7 @@ export const translations = {
     rings: "Ringe", none: "-- Keine --",
     addRing: "+ Ring",
     statuses: "Status", ring: "Ring", addStatus: "Status hinzufügen",
+    dupSegment: "Als Segment duplizieren", dupRing: "Als Ring duplizieren",
     vision: "Vision", visionRange: "Reichweite:",
     tokenDelete: "Löschen",
     chooseColor: "Farbe wählen", resetColor: "Farbe zurücksetzen",
