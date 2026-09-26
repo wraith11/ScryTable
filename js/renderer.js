@@ -1511,6 +1511,11 @@ export class GameRenderer {
 
             if (tc._cachedProps !== currentProps) {
                 while (tc.children.length > 0) tc.removeChildAt(0).destroy();
+                // Alte Ring-Canvas-Texturen freigeben (Memory)
+                if (tc._ringTextures) {
+                    tc._ringTextures.forEach(tx => { try { tx.destroy(true); } catch(e){} });
+                    tc._ringTextures = [];
+                }
                 const color = t.spotlight_color ? parseInt(t.spotlight_color.replace('#',''),16) : 0xffffff;
                 const g = new PIXI.Graphics();
                 g.beginFill(color, 1.0); g.drawCircle(0,0, t.size / 2); g.endFill();
