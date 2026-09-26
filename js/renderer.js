@@ -1568,6 +1568,9 @@ export class GameRenderer {
             if(!activeTokenIds.has(k)) {
                 const tc = this.tokenCache[k];
                 if (tc._blurFilter) tc._blurFilter.destroy();
+                if (tc._ringTextures) {
+                    tc._ringTextures.forEach(tx => { try { tx.destroy(true); } catch(e){} });
+                }
                 tc.destroy({children:true});
                 delete this.tokenCache[k];
             }
