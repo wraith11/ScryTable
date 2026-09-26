@@ -375,7 +375,9 @@
                                     <div v-for="(seg, segIdx) in ring.segments" :key="segIdx" class="row token-status-row" :class="{'single': (ring.segments||[]).length === 1}">
                                         <div class="texture-preview" :style="{backgroundColor: seg.color, width:'30px', height:'30px'}" @click="openRingColorPicker(tok, ringIdx, segIdx)" :title="t('chooseColor')"></div>
                                         <input type="text" v-model.lazy="seg.text" @change="sync" placeholder="Text" style="flex:1; min-width:0; margin:0">
-                                        <button class="btn danger" style="padding:0 10px;" @click="removeTokenSegment(tok, ringIdx, segIdx)" :title="t('delete')">X</button>
+                                        <button class="btn status-action" @click="duplicateStatusAsSegment(tok, ringIdx, segIdx)" :disabled="(ring.segments||[]).length >= 8" :title="t('dupSegment')"><i class="fas fa-clone"></i></button>
+                                        <button class="btn status-action" @click="duplicateStatusAsRing(tok, ringIdx, segIdx)" :disabled="(tok.rings||[]).length >= 4" :title="t('dupRing')"><i class="fas fa-copy"></i></button>
+                                        <button class="btn danger status-action" @click="removeTokenSegment(tok, ringIdx, segIdx)" :title="t('delete')">X</button>
                                     </div>
                                 </div>
 
