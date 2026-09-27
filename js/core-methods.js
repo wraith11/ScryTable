@@ -783,6 +783,37 @@ export const coreMethods = {
         if (this._fowFullTimer) { clearInterval(this._fowFullTimer); this._fowFullTimer = null; }
     },
 
+    // FoW-Pinsel anwenden: Pinselradius an pos setzen.
+    // Modus 'reveal' → fow_visited (aufdecken), 'erase' → fow_erased (zudecken).
+    applyFoWBrush(pos) {
+        if (!this.scene.fow_active || this.scene.fow_mode !== 'permanent') return;
+        const radius = Math.max(5, this.toolSettings.fowBrushRadius || 60);
+        const pt = { x: Math.round(pos.x), y: Math.round(pos.y), radius };
+        if (this.toolSettings.fowBrushMode === 'erase') {
+            if (!this.scene.fow_erased) this.scene.fow_erased = [];
+            this.scene.fow_erased.push(pt);
+            if (!this._fowEraseBuffer) this._fowEraseBuffer = [];
+            this._fowEraseBuffer.push(pt);
+            this.flushFowEraseDelta();
+        } else {
+            if (!this.scene.fow_visited) this.scene.fow_visited = [];
+            this.scene.fow_visited.push(pt);
+            if (!this._fowDeltaBuffer) this._fowDeltaBuffer = [];
+            this._fowDeltaBuffer.push(pt);
+            this.flushFowDelta();
+        }
+        if (this.renderer) {
+            this.renderer.fowDirty = true;
+            this.renderer.requestRender();
+        }
+    },
+    flushFowEraseDelta() {
+        if (!this._fowEraseBuffer || this._fowEraseBuffer.length === 0) return;
+        const points = this._fowEraseBuffer;
+        this._fowEraseBuffer = [];
+        socket.emit('fow_erased_delta', { points });
+    },
+
     updateTokenPos() {
         let changed = false;
         let tokenListChanged = false;
