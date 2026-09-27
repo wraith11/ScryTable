@@ -35,7 +35,7 @@ export function getInitialState() {
             view: {x:0, y:0, scale:1.0},
             player_view: { x: 0, y: 0, width_cells: 28, aspect: 1.777 }, 
             objects:[], walls:[], lights:[], drawings:[], columns:[], tokens:{}, fow_shapes: [],
-            fow_visited: [],
+            fow_visited: [], fow_erased: [],
             fow_active: false, fow_mode: 'temporary', grid_size: 50, objects_locked: false,
             show_blob_ids: true,
             background_locked: false, show_light_icons: true, lights_active: true, 
