@@ -314,7 +314,12 @@ export class GameRenderer {
 
         // Safety: visited wurde zurückgesetzt
         if (visited.length < this.lastFoWPathLength) { forceRebuild = true; this.lastFoWPathLength = 0; }
-        if (visited.length === this.lastFoWPathLength && !forceRebuild) return;
+        // Return nur, wenn weder neue Sicht- noch neue Erase-Punkte vorliegen.
+        // Sonst würde reines Zudecken (ohne neue visited) nie verarbeitet.
+        const erased = this.scene.fow_erased || [];
+        if (this.lastFoWEraseLength === undefined) this.lastFoWEraseLength = 0;
+        if (erased.length < this.lastFoWEraseLength) { forceRebuild = true; this.lastFoWEraseLength = 0; }
+        if (visited.length === this.lastFoWPathLength && erased.length === this.lastFoWEraseLength && !forceRebuild) return;
 
         // --- Automatische Erweiterung des Welt-Felds, falls neue Punkte außerhalb liegen.
         if (!forceRebuild) {
