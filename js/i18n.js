@@ -79,7 +79,7 @@ export const translations = {
     scale: "Scale:", remove: "Remove", repeat: "Repeat",
     // Settings tab
     camSetupBtn: "Camera Setup",
-    defaults: "Defaults", defTokenSize: "Default Token Size:", ringThickness: "Status Ring Thickness:", tokenNameSize: "Token Name Size:", defTokenColor: "Default Token Color:",
+    defaults: "Defaults", defTokenSize: "Default Token Size:", ringThickness: "Status Ring Thickness:", tokenNameSize: "Token Name Size:", defTokenColor: "Default Token Color:", defViewDistance: "Default Vision Range:",
     mapMgmt: "Map Management",
     mapName: "Map name", save: "Save", saveAs: "Save As", newMap: "New Map", confirmNewMap: "Create a new empty map? Unsaved changes will be lost.", deleteMap: "Delete map", confirmDeleteMap: "Delete map '%s'?", errDeleteMap: "Error deleting map: ",
     system: "System",
