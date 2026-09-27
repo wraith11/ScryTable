@@ -257,11 +257,6 @@ export class GameRenderer {
         }
     }
 
-    // Speichert den aktiven Tool-Namen (für Overlays wie den FoW-Pinsel-Cursor).
-    setActiveTool(tool) {
-        if (this.activeTool !== tool) { this.activeTool = tool; this.requestRender(); }
-    }
-
     setDragState(drag, selId) {
         if (drag.active) {
             this._renderDirty = true;
