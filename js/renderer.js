@@ -388,9 +388,6 @@ export class GameRenderer {
 
         // FoW-Pinsel "Zudecken": fow_erased-Punkte mit DST_OUT aus dem Memory ausschneiden.
         // Inkrementell wie fow_visited (nur neue Punkte), damit es schnell bleibt.
-        const erased = this.scene.fow_erased || [];
-        if (this.lastFoWEraseLength === undefined) this.lastFoWEraseLength = 0;
-        if (erased.length < this.lastFoWEraseLength) { forceRebuild = true; this.lastFoWEraseLength = 0; }
         if (erased.length > this.lastFoWEraseLength || forceRebuild) {
             const eraseG = new PIXI.Graphics();
             eraseG.beginFill(0x000000, 1.0);
