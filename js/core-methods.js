@@ -208,7 +208,6 @@ export const coreMethods = {
             if(['brush', 'grid_paint', 'rect_paint', 'circle_paint'].includes(t)) return;
         }
         this.tool = t; this.drag.mode = null; 
-        if(this.renderer) this.renderer.setActiveTool(t);
         if(t !== 'select') {
             this.selObjId = null; 
             this.selectedObjIsWall = false;
