@@ -380,6 +380,31 @@ export class GameRenderer {
         this.pixiApp.renderer.render(brush, { renderTexture: this.fowMemoryTexture, clear: forceRebuild, transform: null });
         brush.destroy();
 
+        // FoW-Pinsel "Zudecken": fow_erased-Punkte mit DST_OUT aus dem Memory ausschneiden.
+        // Inkrementell wie fow_visited (nur neue Punkte), damit es schnell bleibt.
+        const erased = this.scene.fow_erased || [];
+        if (this.lastFoWEraseLength === undefined) this.lastFoWEraseLength = 0;
+        if (erased.length < this.lastFoWEraseLength) { forceRebuild = true; this.lastFoWEraseLength = 0; }
+        if (erased.length > this.lastFoWEraseLength || forceRebuild) {
+            const eraseG = new PIXI.Graphics();
+            eraseG.beginFill(0x000000, 1.0);
+            const eStart = forceRebuild ? 0 : this.lastFoWEraseLength;
+            for (let i = eStart; i < erased.length; i++) {
+                const pt = erased[i];
+                const relX = (pt.x - viewX) * ms;
+                const relY = (pt.y - viewY) * ms;
+                if (relX < -pt.radius * ms || relX > this.fowWorldW * ms + pt.radius * ms || relY < -pt.radius * ms || relY > this.fowWorldH * ms + pt.radius * ms) continue;
+                eraseG.drawCircle(relX, relY, Math.max(1, pt.radius * ms));
+            }
+            eraseG.endFill();
+            // DST_OUT schneidet die schwarzen Kreise aus der Memory-Textur aus
+            eraseG.blendMode = PIXI.BLEND_MODES.DST_OUT;
+            this.pixiApp.renderer.render(eraseG, { renderTexture: this.fowMemoryTexture, clear: false, transform: null });
+            eraseG.destroy();
+            this.lastFoWEraseLength = erased.length;
+            this.fowBlurDirty = true;
+        }
+
         this.lastFoWPathLength = visited.length;
         this._lastFoWBakeTime = now;
         this.fowBlurDirty = true;
