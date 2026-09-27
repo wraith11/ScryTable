@@ -787,6 +787,12 @@ export const coreMethods = {
         if (this._fowFullTimer) { clearInterval(this._fowFullTimer); this._fowFullTimer = null; }
     },
 
+    // Aktiviert das FoW-Pinsel-Werkzeug mit dem gewählten Modus (reveal/erase).
+    setFowBrushTool(mode) {
+        this.toolSettings.fowBrushMode = mode;
+        this.setTool('fow_paint');
+    },
+
     // FoW-Pinsel anwenden: Pinselradius an pos setzen.
     // Modus 'reveal' → fow_visited (aufdecken), 'erase' → fow_erased (zudecken).
     applyFoWBrush(pos) {
