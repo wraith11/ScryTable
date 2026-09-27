@@ -339,6 +339,14 @@ export const interactionMethods = {
                 this.renderer.requestRender();
             }
         }
+        else if(this.drag.mode === 'fow_paint') {
+            const last = this.drag.temp.last;
+            const step = Math.max(5, this.toolSettings.fowBrushRadius * 0.3);
+            if (!last || Math.hypot(pos.x - last.x, pos.y - last.y) >= step) {
+                this.applyFoWBrush(pos);
+                this.drag.temp.last = {x: pos.x, y: pos.y};
+            }
+        }
         else if(this.drag.mode === 'grid_paint') {
             const gx = Math.floor(pos.x/50)*50; const gy = Math.floor(pos.y/50)*50;
             if(!this.drag.temp.cells.some(c => c.x===gx && c.y===gy)) { this.drag.temp.cells.push({x:gx, y:gy}); this.renderer.requestRender(); }
