@@ -37,7 +37,7 @@ export const translations = {
     mergeDist: "Merge Distance: ",
     minArea: "Min Area: ", maxArea: "Max Area: ",
     parallax: "Parallax Strength: ",
-    camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Kamera-Position", camPosHint: "Kreuz ziehen, um die Kameraposition zu setzen (grün = Spielfeld)", camPosBigInput: "Eingabe für größere Werte",
+    camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Camera Position", camPosHint: "Drag the cross to set camera position (green = play area)", camPosBigInput: "Input for larger values",
     hotspot: "Hotspot: ", smoothing: "Smoothing: ",
     flipX: "Flip X", flipY: "Flip Y",
     reset: "Reset", resetCam: "Reset Camera",
