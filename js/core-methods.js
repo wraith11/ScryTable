@@ -415,9 +415,11 @@ export const coreMethods = {
     resetFoW() {
         if (confirm(this.t('confirmFowReset'))) {
             this.scene.fow_visited = [];
+            this.scene.fow_erased = [];
             this.sync();
             if(this.renderer) {
                 this.renderer.fowDirty = true;
+                this.renderer.resetFoWMemory();
                 this.renderer.updateFoWMemory(true);
                 this.renderer.requestRender();
             }
