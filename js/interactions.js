@@ -239,6 +239,11 @@ export const interactionMethods = {
             this.drag.temp={id:'d_'+Date.now(), type:'path', color:this.drawColor, size:this.toolSettings.brushSize, points:[pos], texture:this.brushTexture, tilesPerAxis:this.tilesPerAxis}; 
             this.renderer.requestRender(); 
         }
+        else if(this.tool === 'fow_paint') {
+            this.drag.mode='fow_paint';
+            this.drag.temp={ points: [], last: null };
+            this.applyFoWBrush(pos);
+        }
         else if(this.tool === 'grid_paint') { this.drag.mode='grid_paint'; this.drag.temp={id:'d_'+Date.now(), type:'grid_paint', cells:[{x:Math.floor(pos.x/50)*50, y:Math.floor(pos.y/50)*50}], color:this.drawColor, texture:this.brushTexture, tilesPerAxis:this.tilesPerAxis}; this.renderer.requestRender(); }
         else if(this.tool === 'rect_paint') { 
             this.drag.mode='rect_paint'; 
