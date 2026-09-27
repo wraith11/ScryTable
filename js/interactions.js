@@ -299,6 +299,7 @@ export const interactionMethods = {
 
     onMove(e) {
         if(!this.isGM || !this.renderer) return;
+        if(!this.drag.active) return;
         
         if(e.buttons === 2) { 
             const dist = Math.hypot(e.clientX - this.rightClickStart.x, e.clientY - this.rightClickStart.y);
