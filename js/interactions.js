@@ -298,7 +298,14 @@ export const interactionMethods = {
     },
 
     onMove(e) {
-        if(!this.isGM || !this.drag.active || !this.renderer) return;
+        if(!this.isGM || !this.renderer) return;
+        // Mausposition für FoW-Pinsel-Cursor bereitstellen (auch ohne aktiven Drag)
+        if(this.renderer) {
+            const mpos = this.renderer.getWorldPos(e);
+            this.renderer.mouseWorld = mpos;
+            if(this.tool === 'fow_paint') this.renderer.requestRender();
+        }
+        if(!this.drag.active) return;
         
         if(e.buttons === 2) { 
             const dist = Math.hypot(e.clientX - this.rightClickStart.x, e.clientY - this.rightClickStart.y);
