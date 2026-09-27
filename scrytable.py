@@ -491,6 +491,25 @@ async def fow_visited_full(sid, data):
     """A2: Vollständigen fow_visited-Stand austauschen (periodischer Abgleich gegen Desync)."""
     points = data.get('points', [])
     if not isinstance(points, list): return
+    await sio.emit('fow_visited_full', {'points': points}, skip_sid=sid)
+
+@sio.event
+async def fow_erased_delta(sid, data):
+    """FoW-Pinsel (zudecken): Neue fow_erased-Punkte anhängen und nur das Delta broadcasten."""
+    points = data.get('points', [])
+    if not isinstance(points, list) or len(points) == 0: return
+    scene = state['scene']
+    if 'fow_erased' not in scene: scene['fow_erased'] = []
+    scene['fow_erased'].extend(points)
+    await sio.emit('fow_erased_delta', {'points': points}, skip_sid=sid)
+
+@sio.event
+async def fow_erased_full(sid, data):
+    """Vollständigen fow_erased-Stand austauschen (periodischer Abgleich gegen Desync)."""
+    points = data.get('points', [])
+    if not isinstance(points, list): return
+    state['scene']['fow_erased'] = points
+    await sio.emit('fow_erased_full', {'points': points}, skip_sid=sid)
     state['scene']['fow_visited'] = points
     await sio.emit('fow_visited_full', {'points': points}, skip_sid=sid)
 
