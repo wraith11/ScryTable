@@ -599,6 +599,7 @@ async def new_map(sid):
     sc['drawings'] = []
     sc['fow_shapes'] = []
     sc['fow_visited'] = []
+    sc['fow_erased'] = []
     sc['tokens'] = {}
     sc['background_image'] = {'url': None, 'x': 0, 'y': 0, 'scale': 1.0, 'repeat': False, 'opacity': 1.0}
     await sio.emit('init', state['scene'])
