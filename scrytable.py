@@ -574,6 +574,7 @@ async def load_map(sid, filename):
             state['scene']['player_view_blackout'] = True
             
             if 'fow_visited' not in state['scene']: state['scene']['fow_visited'] = []
+            if 'fow_erased' not in state['scene']: state['scene']['fow_erased'] = []
             if 'show_player_frame' not in state['scene']: state['scene']['show_player_frame'] = True
             
             if 'blackout_config' not in state['scene']: 
