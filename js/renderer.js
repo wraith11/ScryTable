@@ -276,6 +276,7 @@ export class GameRenderer {
         if (this.fowMemoryTexture) { this.fowMemoryTexture.destroy(true); this.fowMemoryTexture = null; }
         if (this.fowBlurredTexture) { this.fowBlurredTexture.destroy(true); this.fowBlurredTexture = null; }
         this.lastFoWPathLength = 0;
+        this.lastFoWEraseLength = 0;
         this.fowBlurDirty = false;
         this.fowWorldX = this.fowWorldY = this.fowWorldW = this.fowWorldH = 0;
     }
