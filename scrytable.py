@@ -462,6 +462,10 @@ async def update_scene(sid, data):
              if state['scene']['fow_visited'] != value:
                  state['scene']['fow_visited'] = value
                  changed_keys.add('fow_visited')
+        elif key == 'fow_erased' and isinstance(value, list):
+             if state['scene'].get('fow_erased') != value:
+                 state['scene']['fow_erased'] = value
+                 changed_keys.add('fow_erased')
         else:
             if state['scene'].get(key) != value:
                 state['scene'][key] = value
