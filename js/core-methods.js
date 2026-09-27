@@ -594,6 +594,8 @@ export const coreMethods = {
         });
         this._prevTokenColorDefault = newDefault;
         this.sync();
+        if(this.renderer) this.renderer.requestRender();
+    },
     // Wendet die geänderte Standard-View-Distance auf alle Tokens mit der bisherigen
     // Standard-Reichweite an (damit bestehende Tokens sofort mit aktualisiert werden).
     applyVisionRangeDefault() {
@@ -605,8 +607,6 @@ export const coreMethods = {
         });
         this._prevVisionRangeDefault = newDefault;
         this.sync();
-        if(this.renderer) this.renderer.requestRender();
-    },
         if(this.renderer) this.renderer.requestRender();
     },
     // Ein neues Segment (Status) an einen bestehenden Ring anhängen.
