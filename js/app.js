@@ -40,6 +40,13 @@ createApp({
             const parts = this.currentAssetPath.split('/');
             let acc = '';
             return parts.map(p => { acc += (acc?'/':'')+p; return {name:p, full:acc}; });
+        },
+        // Kamera-Positions-Ansicht: cam_pos (Werte -2..3, Bildmitte=0.5) → Anzeige-Prozent
+        camPosViewX() {
+            return ((this.camParams.cam_pos_x + 2) / 5) * 100;
+        },
+        camPosViewY() {
+            return ((this.camParams.cam_pos_y + 2) / 5) * 100;
         }
     },
     watch: {
