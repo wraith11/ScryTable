@@ -88,7 +88,7 @@ state = {
         'show_blob_ids': True,
         'background_locked': False, 'show_light_icons': True,
         'drawings': [], 'walls': [], 'columns': [], 'lights': [], 'objects': [], 'tokens': {}, 'fow_shapes': [], 
-        'fow_visited': [],
+        'fow_visited': [], 'fow_erased': [],
         'view': {'x': 0, 'y': 0, 'scale': 1.0},
         'player_view': { 'x': 2000, 'y': 1500, 'width_cells': 30, 'aspect': 1.777 },
         'player_view_blackout': True,
