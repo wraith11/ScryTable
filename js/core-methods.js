@@ -521,6 +521,7 @@ export const coreMethods = {
         if(this.scene.show_light_icons === undefined) this.scene.show_light_icons = true;
         if(this.scene.lights_active === undefined) this.scene.lights_active = true;
         if(!this.scene.fow_visited) this.scene.fow_visited = [];
+        if(!this.scene.fow_erased) this.scene.fow_erased = [];
         if(this.scene.show_player_frame === undefined) this.scene.show_player_frame = true;
         // Migration: Altes Ring-Format (flaches Array von {color,text}) → Gruppenmodell
         // {segments:[{color,text}]}. Jeder alte Ring wird zu einer Gruppe mit einem Segment.
