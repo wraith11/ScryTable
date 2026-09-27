@@ -501,6 +501,7 @@
                             <label>{{ t('tokenNameSize') }}</label><input type="number" min="6" max="40" v-model.number="scene.token_name_size" @change="sync">
                             <label>{{ t('defTokenColor') }}</label>
                             <div class="texture-preview default-color-swatch" :style="{backgroundColor: scene.token_color_default || '#aaaaaa'}" @click="openDefaultColorPicker" :title="t('chooseColor')"></div>
+                            <label>{{ t('defViewDistance') }}</label><input type="number" min="50" max="2000" v-model.number="scene.vision_range_default" @change="applyVisionRangeDefault">
                         </div>
                     </div>
                     
