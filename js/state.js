@@ -79,6 +79,7 @@ export function getInitialState() {
         currentMapName: "",
         _clipboard: null,
         _prevTokenSizeDefault: 45,
-        _prevTokenColorDefault: '#aaaaaa'
+        _prevTokenColorDefault: '#aaaaaa',
+        _prevVisionRangeDefault: 400
     };
 }
