@@ -1420,8 +1420,8 @@ export class GameRenderer {
             // Voller Ring
             drawSegment(0, Math.PI * 2, segments[0].color || '#2a2a2a');
         } else {
-            // Segmentierter Ring: Bogenstücke mit Lücke
-            const segGap = 0.09;
+            // Segmentierter Ring: Bogenstücke mit größerem Abstand (keine harte Kante nötig)
+            const segGap = 0.14;
             const totalAngle = Math.PI * 2;
             const segAngle = (totalAngle - segments.length * segGap) / segments.length;
             let startA = -Math.PI / 2;
