@@ -724,7 +724,7 @@ export const coreMethods = {
                 this.scene.tokens[id] = {
                     uuid: id, name: "", blob_id: String(bid), 
                     x: initX, y: initY, 
-                    on_board: true, has_vision: false, vision_range: 400,
+                    on_board: true, has_vision: false, vision_range: (this.scene.vision_range_default || 400),
                     spotlight_color: (this.scene.token_color_default || '#aaaaaa'), size: (this.scene.token_size_default || 45), style: 'dot',
                     markers: [{},{},{},{},{}], rings: [], modified: false
                 };
