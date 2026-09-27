@@ -1462,7 +1462,7 @@ export class GameRenderer {
                      this.drawCurvedText(container, segments[0].text, centerR, Math.PI, 0xffffff, ringWidth, false);
                  }
              } else {
-                 const segGap = 0.09;
+                 const segGap = 0.14;
                  const totalAngle = Math.PI * 2;
                  const segAngle = (totalAngle - segments.length * segGap) / segments.length;
                  let startA = -Math.PI / 2;
