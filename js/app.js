@@ -210,6 +210,24 @@ createApp({
             const points = data.points || [];
             this.scene.fow_visited = points;
             if (this.renderer) {
+        socket.on('fow_erased_delta', (data) => {
+            const points = data.points || [];
+            if (points.length === 0) return;
+            if (!this.scene.fow_erased) this.scene.fow_erased = [];
+            this.scene.fow_erased.push(...points);
+            if (this.renderer) {
+                this.renderer.fowDirty = true;
+                this.renderer.requestRender();
+            }
+        });
+        socket.on('fow_erased_full', (data) => {
+            const points = data.points || [];
+            this.scene.fow_erased = points;
+            if (this.renderer) {
+                this.renderer.fowDirty = true;
+                this.renderer.requestRender();
+            }
+        });
                 this.renderer.fowDirty = true;
                 this.renderer.requestRender();
             }
