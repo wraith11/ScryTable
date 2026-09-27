@@ -79,8 +79,6 @@ export class GameRenderer {
         this.tilesPerAxis = 2;
         this.dragState = { mode: null, temp: null };
         this.selectedObjId = null;
-        this.activeTool = 'select';
-        this.mouseWorld = null;
         this.lastDragHash = "";
         
         // --- PERFORMANCE: Event Driven Rendering ---
