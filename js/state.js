@@ -45,7 +45,7 @@ export function getInitialState() {
             show_grid: true, time_of_day: 'day',
             player_view_blackout: true, tracking_paused: false, show_player_frame: true,
             // Defaults für neue Tokens
-            token_size_default: 45, ring_thickness: 10, token_name_size: 12, token_color_default: '#aaaaaa',
+            token_size_default: 45, ring_thickness: 10, token_name_size: 12, token_color_default: '#aaaaaa', vision_range_default: 400,
             
             // NEU: Blackout Config
             blackout_config: {
