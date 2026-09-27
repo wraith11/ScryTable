@@ -156,17 +156,6 @@
                         <span>{{toolSettings.brushSize}}px</span>
                      </div>
                  </template>
-                 <template v-if="tool=='fow_paint'">
-                     <span style="font-weight:bold; font-size:0.9em; color:#ccc; margin-right:10px;"><i class="fas fa-eraser"></i> {{ t('fowBrush') }}</span>
-                     <div class="control-group" style="width:130px;">
-                        <label>{{ t('brushSize') }}</label>
-                        <input type="range" min="10" max="300" v-model.number="toolSettings.fowBrushRadius">
-                        <span>{{toolSettings.fowBrushRadius}}px</span>
-                     </div>
-                     <label style="font-size:0.8em; display:flex; align-items:center; gap:5px; cursor:pointer; margin-left:10px;">
-                         <input type="checkbox" v-model="toolSettings.fowBrushMode" true-value="erase" false-value="reveal"> {{ t('fowErase') }}
-                     </label>
-                 </template>
                  <template v-if="tool=='column'">
                      <span style="font-weight:bold; font-size:0.9em; color:#ccc; margin-right:10px;"><i class="fas fa-square"></i> {{ t('column') }}</span>
                      <div class="control-group" style="width:150px;">
