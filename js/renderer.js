@@ -1122,17 +1122,6 @@ export class GameRenderer {
         const scale = this.world.scale.x; 
         const handleSize = 5 / scale;
 
-        // FoW-Pinsel-Cursor: Kreis an der Mausposition anzeigen
-        if (this.activeTool === 'fow_paint' && this.mouseWorld && this.dragState.mode !== 'fow_paint') {
-            const brushR = (this.toolSettings.fowBrushRadius || 60) / scale;
-            const mx = this.mouseWorld.x, my = this.mouseWorld.y;
-            const erase = this.toolSettings.fowBrushMode === 'erase';
-            g.lineStyle(2 / scale, erase ? 0xff4444 : 0x44ff44, 0.9);
-            g.drawCircle(mx, my, brushR);
-            g.lineStyle(1 / scale, erase ? 0xff4444 : 0x44ff44, 0.5);
-            g.drawCircle(mx, my, brushR * 0.5);
-        }
-
         // VORSCHAU: Säulen
         if (this.dragState.active && this.dragState.mode === 'column' && this.dragState.temp) {
             const t = this.dragState.temp;
