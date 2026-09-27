@@ -229,6 +229,16 @@
                                 <label>{{ t('camPosY') }}{{ camParams.cam_pos_y.toFixed(2) }}</label>
                                 <input type="range" min="-2.0" max="3.0" step="0.1" v-model.number="camParams.cam_pos_y" @change="updateCamParams">
                             </div>
+                            <div class="calib-group">
+                                <label>{{ t('camPosView') }}</label>
+                                <div class="cam-pos-view" ref="camPosView" @mousedown="startCamPosDrag" @mousemove="onCamPosMove" @mouseup="stopCamPosDrag">
+                                    <!-- kleines Spielfeld angedeutet (0..1 Bereich) -->
+                                    <div class="cam-pos-board"></div>
+                                    <!-- Kamera-Kreuz -->
+                                    <div class="cam-pos-cross" :style="{left: camPosViewX + '%', top: camPosViewY + '%'}"></div>
+                                </div>
+                                <div style="font-size:0.7em; color:#888; margin-top:3px;">{{ t('camPosHint') }}</div>
+                            </div>
 
                             <div class="calib-group">
                                 <label>{{ t('hotspot') }}{{ camParams.hotspot_compensation }}</label>
