@@ -144,7 +144,6 @@ input[type="range"] { padding: 0; height: 10px; width: 100%; }
 .cam-pos-slider-row label { flex: 0 0 auto; min-width: 55px; font-size: 0.75em; color: #aaa; margin: 0; }
 .cam-pos-slider-row input[type="range"] { margin: 0; flex: 1; min-width: 0; }
 .cam-pos-num { width: 58px !important; margin: 0 !important; padding: 3px 5px !important; text-align: right; }
-.cam-pos-cross::after { top: 50%; left: 0; height: 2px; width: 100%; margin-top: -1px; }
 
 /* --- ASSET BROWSER --- */
 .separator-line { height: 1px; background-color: #444; margin: 15px 0; width: 100%; }
