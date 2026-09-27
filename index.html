@@ -485,6 +485,17 @@
                     <div class="row"><label>{{ t('fogOfWar') }}</label><input type="checkbox" v-model="scene.fow_active" @change="sync"></div>
                     <div v-if="scene.fow_active" style="margin-top:10px; padding:10px; background:#111; border-radius:4px;">
                         <label>{{ t('mode') }}</label><select v-model="scene.fow_mode" @change="sync"><option value="temporary">{{ t('modeTemp') }}</option><option value="permanent">{{ t('modePerm') }}</option></select>
+                        <!-- FoW-Werkzeuge: nur bei permanentem Modus -->
+                        <div v-if="scene.fow_mode === 'permanent'" style="margin-top:8px;">
+                            <div class="row">
+                                <button class="btn" :class="{active: tool=='fow_paint' && toolSettings.fowBrushMode === 'reveal'}" @click="setFowBrushTool('reveal')"><i class="fas fa-paint-brush"></i> {{ t('fowBrush') }}</button>
+                                <button class="btn" :class="{active: tool=='fow_paint' && toolSettings.fowBrushMode === 'erase'}" @click="setFowBrushTool('erase')"><i class="fas fa-eraser"></i> {{ t('fowErase') }}</button>
+                            </div>
+                            <div class="row" style="margin-top:5px">
+                                <label>{{ t('brushSize') }}</label> <input type="range" min="10" max="400" v-model.number="toolSettings.fowBrushRadius">
+                                <span class="token-size-val">{{ toolSettings.fowBrushRadius }}</span>
+                            </div>
+                        </div>
                         <button class="btn danger full" style="margin-top:5px" @click="resetFoW">{{ t('fowReset') }}</button>
                     </div>
                     <div class="section-title">{{ t('background') }}</div>
