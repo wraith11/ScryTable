@@ -314,9 +314,6 @@
                             <button class="btn" :class="{active: tool=='rect_paint'}" @click="setTool('rect_paint')" :disabled="scene.objects_locked || scene.background_locked"><i class="far fa-square"></i></button>
                             <button class="btn" :class="{active: tool=='grid_paint'}" @click="setTool('grid_paint')" :disabled="scene.objects_locked || scene.background_locked"><i class="fas fa-th"></i></button>
                         </div>
-                        <div class="btn-group">
-                            <button class="btn" :class="{active: tool=='fow_paint'}" @click="setTool('fow_paint')" :disabled="scene.objects_locked || !scene.fow_active || scene.fow_mode !== 'permanent'"><i class="fas fa-eraser"></i> {{ t('fowBrush') }}</button>
-                        </div>
                         <div class="section-title">{{ t('assets') }}</div>
                         <div class="asset-browser-nav">
                             <span v-if="!currentAssetPath" style="color:#666">{{ t('root') }}</span>
