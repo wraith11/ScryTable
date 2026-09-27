@@ -63,6 +63,28 @@ createApp({
         ...interactionMethods,
         ...coreMethods,
 
+        // --- Kamera-Positions-Ansicht (Draggen des Kreuzes) ---
+        startCamPosDrag(e) {
+            this._camPosDragging = true;
+            this.onCamPosMove(e);
+        },
+        onCamPosMove(e) {
+            if (!this._camPosDragging) return;
+            const rect = this.$refs.camPosView.getBoundingClientRect();
+            if (!rect.width) return;
+            const px = ((e.clientX - rect.left) / rect.width) * 100;
+            const py = ((e.clientY - rect.top) / rect.height) * 100;
+            // Anzeige-Prozent → cam_pos-Wert (-2..3)
+            const vx = (px / 100) * 5 - 2;
+            const vy = (py / 100) * 5 - 2;
+            this.camParams.cam_pos_x = Math.max(-2, Math.min(3, Math.round(vx * 10) / 10));
+            this.camParams.cam_pos_y = Math.max(-2, Math.min(3, Math.round(vy * 10) / 10));
+            this.updateCamParams();
+        },
+        stopCamPosDrag() {
+            this._camPosDragging = false;
+        },
+
         // i18n: liefert den übersetzten String für den aktuellen Zustand (lang).
         // Format-Platzhalter wie '%s' werden mit args ersetzt.
         t(key, ...args) {
