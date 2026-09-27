@@ -73,6 +73,7 @@ export const translations = {
     fogOfWar: "Fog of War:",
     mode: "Mode:", modeTemp: "Mode 2 (Temporary)", modePerm: "Mode 1 (Permanent)",
     fowReset: "FOW Reset",
+    fowBrush: "FoW Brush", fowErase: "Erase (cover up)",
     background: "Background",
     uploadImage: "Upload image",
     scale: "Scale:", remove: "Remove", repeat: "Repeat",
