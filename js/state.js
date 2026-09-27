@@ -28,6 +28,7 @@ export function getInitialState() {
         
         toolSettings: { 
             invisibleWall: false, columnVertices: 0, wallWidth: 15, brushSize: 15,
+            fowBrushRadius: 60, fowBrushMode: 'reveal',
             light: { radius: 300, brightness: 0.4, color_intensity: 0.1, color: '#ffaa00', flicker: false, flicker_strength: 50 }
         },
         
