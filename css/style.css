@@ -140,12 +140,12 @@ input[type="range"] { padding: 0; height: 10px; width: 100%; }
 .cam-pos-cross::before, .cam-pos-cross::after { content: ''; position: absolute; background: #0f0; }
 .cam-pos-cross::before { left: 50%; top: 0; width: 2px; height: 100%; margin-left: -1px; }
 .cam-pos-cross::after { top: 50%; left: 0; height: 2px; width: 100%; margin-top: -1px; }
-/* 3 Slider (X, Y, Parallax) nebeneinander in einer Karte */
-.cam-pos-sliders { display: flex; gap: 10px; align-items: stretch; }
-.cam-pos-slider-row { display: flex; flex-direction: column; gap: 4px; flex: 1 1 0; min-width: 0; }
-.cam-pos-slider-row label { font-size: 0.7em; color: #aaa; margin: 0; white-space: nowrap; }
-.cam-pos-slider-row input[type="range"] { margin: 0; width: 100%; height: 8px; }
-.cam-pos-num { width: 100% !important; margin: 0 !important; padding: 2px 4px !important; text-align: right; font-size: 0.75em !important; box-sizing: border-box; }
+/* Gruppierte Einstellungen in einer Karte (Slider untereinander) */
+.calib-inner { margin-bottom: 6px; }
+.calib-inner:last-child { margin-bottom: 0; }
+.calib-inner label { font-size: 0.7em; color: #aaa; margin: 0 0 2px 0; display: block; }
+.calib-inner input[type="range"] { margin: 0; width: 100%; height: 8px; }
+.cam-pos-num { width: 56px !important; margin: 0 !important; padding: 2px 4px !important; text-align: right; font-size: 0.75em !important; box-sizing: border-box; }
 
 /* --- ASSET BROWSER --- */
 .separator-line { height: 1px; background-color: #444; margin: 15px 0; width: 100%; }
