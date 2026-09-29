@@ -217,7 +217,7 @@
                                 <input type="range" min="100" max="10000" v-model.number="camParams.max_area" @change="updateCamParams">
                             </div>
                             
-                            <div class="calib-group">
+                            <div class="calib-group calib-full">
                                 <label>{{ t('camPosView') }}</label>
                                 <div class="cam-pos-view" ref="camPosView" @mousedown="startCamPosDrag" @mousemove="onCamPosMove" @mouseup="stopCamPosDrag">
                                     <!-- kleines Spielfeld angedeutet (0..1 Bereich) -->
