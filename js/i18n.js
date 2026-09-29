@@ -128,7 +128,7 @@ export const translations = {
     mergeDist: "Merge Distance: ",
     minArea: "Min Area: ", maxArea: "Max Area: ",
     blobSize: "Blob-Größe", imageOpt: "Bildoptimierung", trackingSmooth: "Tracking-Glättung",
-    parallax: "Parallax Stärke: ",
+    parallax: "Höhenverhältnis (Figur/Kamera): ", parallaxHint: "Perspektivisches Höhenverhältnis = Figurenhöhe / Kamerahöhe. 0 = keine Korrektur.",
     camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Kamera-Position", camPosSliders: "Position & Parallax", camPosHint: "Kreuz ziehen, um die Kameraposition zu setzen (grün = Spielfeld)", camPosBigInput: "Eingabe für größere Werte",
     hotspot: "Hotspot: ", smoothing: "Glättung: ",
     flipX: "Flip X", flipY: "Flip Y",
