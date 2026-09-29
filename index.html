@@ -259,13 +259,17 @@
                                     <label>{{ t('hotspot') }}{{ camParams.hotspot_compensation }}</label>
                                     <input type="range" min="0" max="1" step="0.1" v-model.number="camParams.hotspot_compensation" @change="updateCamParams">
                                 </div>
-                                <div class="calib-inner">
-                                    <label>{{ t('smoothing') }}{{ camParams.smoothing }}</label>
-                                    <input type="range" min="0" max="0.95" step="0.05" v-model.number="camParams.smoothing" @change="updateCamParams">
-                                </div>
                                 <div style="display:flex; gap:10px; margin-top:4px;">
                                     <label style="font-size:0.8em;"><input type="checkbox" v-model="camParams.flip_x" @change="updateCamParams"> {{ t('flipX') }}</label>
                                     <label style="font-size:0.8em;"><input type="checkbox" v-model="camParams.flip_y" @change="updateCamParams"> {{ t('flipY') }}</label>
+                                </div>
+                            </div>
+
+                            <div class="calib-group">
+                                <label>{{ t('trackingSmooth') }}</label>
+                                <div class="calib-inner">
+                                    <label>{{ t('smoothing') }}{{ camParams.smoothing }}</label>
+                                    <input type="range" min="0" max="0.95" step="0.05" v-model.number="camParams.smoothing" @change="updateCamParams">
                                 </div>
                             </div>
 
