@@ -37,7 +37,7 @@ export const translations = {
     mergeDist: "Merge Distance: ",
     minArea: "Min Area: ", maxArea: "Max Area: ",
     blobSize: "Blob Size", imageOpt: "Image Optimization", trackingSmooth: "Tracking Smoothing",
-    parallax: "Parallax Strength: ",
+    parallax: "Height Ratio (fig/cam): ", parallaxHint: "Perspective height ratio = figure height / camera height. 0 = no correction.",
     camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Camera Position", camPosSliders: "Position & Parallax", camPosHint: "Drag the cross to set camera position (green = play area)", camPosBigInput: "Input for larger values",
     hotspot: "Hotspot: ", smoothing: "Smoothing: ",
     flipX: "Flip X", flipY: "Flip Y",
