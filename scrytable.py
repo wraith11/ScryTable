@@ -847,13 +847,25 @@ def run_cv_loop(loop_ref):
                 avg_y = sum(p[1] for p in group) / len(group)
                 merged_points.append({'x': avg_x / WARPED_SIZE, 'y': avg_y / WARPED_SIZE})
 
-            p_str = params.get('parallax_strength', 0.0)
-            cam_x = params.get('cam_pos_x', 0.5)
-            cam_y = params.get('cam_pos_y', 0.5)
-            if abs(p_str) > 0.001:
+            # Perspektivische Parallax-Korrektur.
+            # Physik: Ein Punkt auf Figurhöhe h, gesehen von Kamera auf Höhe H mit
+            # Bodenpunkt B, erscheint an P = C + (B-C)·H/(H-h). Umgekehrt gilt:
+            #   B = C + (P-C)·(1 - r)   mit r = h/H (Höhenverhältnis Figur/Kamera).
+            # Die Kameraposition muss in DENSELBEN (gewarpten) Koordinaten liegen wie
+            # die Blobs, sonst stimmt die Korrektur nicht. Dazu transformieren wir
+            # cam_pos (Kamerabild, 0..1) durch dieselbe Perspektiv-Matrix M.
+            p_ratio = params.get('parallax_height_ratio', 0.0)
+            if abs(p_ratio) > 0.001 and M is not None:
+                fh, fw = frame.shape[:2]
+                cam_px = np.array([[[params.get('cam_pos_x', 0.5) * fw, params.get('cam_pos_y', 0.5) * fh]]], dtype=np.float32)
+                cam_warp = cv2.perspectiveTransform(cam_px, M)[0][0]
+                cam_wx = cam_warp[0] / WARPED_SIZE
+                cam_wy = cam_warp[1] / WARPED_SIZE
                 for pt in merged_points:
-                    dx = cam_x - pt['x']; dy = cam_y - pt['y']
-                    pt['x'] += dx * p_str; pt['y'] += dy * p_str
+                    # B = P - r·(P - C): verschiebe weg von der Kameramitte, proportional
+                    # zum Höhenverhältnis und richtungsabhängig (X/Y getrennt).
+                    pt['x'] -= (pt['x'] - cam_wx) * p_ratio
+                    pt['y'] -= (pt['y'] - cam_wy) * p_ratio
 
             blobs, new_ids, lost_ids = tracker.update(merged_points, smoothing=params.get('smoothing', 0.2))
 
