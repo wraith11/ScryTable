@@ -217,7 +217,7 @@
                                 <input type="range" min="100" max="10000" v-model.number="camParams.max_area" @change="updateCamParams">
                             </div>
                             
-                            <div class="calib-group calib-full">
+                            <div class="calib-group">
                                 <label>{{ t('camPosView') }}</label>
                                 <div class="cam-pos-view" ref="camPosView" @mousedown="startCamPosDrag" @mousemove="onCamPosMove" @mouseup="stopCamPosDrag">
                                     <!-- kleines Spielfeld angedeutet (0..1 Bereich) -->
@@ -225,7 +225,11 @@
                                     <!-- Kamera-Kreuz -->
                                     <div class="cam-pos-cross" :style="{left: camPosViewX + '%', top: camPosViewY + '%'}"></div>
                                 </div>
-                                <!-- Slider + Eingabefeld für X, Y und Parallax in einer Karte -->
+                                <div style="font-size:0.7em; color:#888; margin-top:3px;">{{ t('camPosHint') }}</div>
+                            </div>
+
+                            <div class="calib-group">
+                                <label>{{ t('camPosSliders') }}</label>
                                 <div class="cam-pos-sliders">
                                     <div class="cam-pos-slider-row">
                                         <label>{{ t('camPosX') }}</label>
@@ -243,7 +247,6 @@
                                         <input type="number" step="0.001" v-model.number="camParams.parallax_strength" @change="updateCamParams" class="cam-pos-num" :title="t('camPosBigInput')">
                                     </div>
                                 </div>
-                                <div style="font-size:0.7em; color:#888; margin-top:3px;">{{ t('camPosHint') }}</div>
                             </div>
 
                             <div class="calib-group">
