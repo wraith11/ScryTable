@@ -36,6 +36,7 @@ export const translations = {
     threshold: "Threshold (Binarize): ",
     mergeDist: "Merge Distance: ",
     minArea: "Min Area: ", maxArea: "Max Area: ",
+    blobSize: "Blob Size", imageOpt: "Image Optimization",
     parallax: "Parallax Strength: ",
     camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Camera Position", camPosSliders: "Position & Parallax", camPosHint: "Drag the cross to set camera position (green = play area)", camPosBigInput: "Input for larger values",
     hotspot: "Hotspot: ", smoothing: "Smoothing: ",
