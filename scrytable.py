@@ -539,7 +539,7 @@ async def refresh_cameras(sid):
 async def reset_camera(sid):
     global camera_reset_requested
     state['cam_params']['threshold'] = 200
-    state['cam_params']['parallax_strength'] = 0.0
+    state['cam_params']['parallax_height_ratio'] = 0.0
     state['cam_params']['merge_distance'] = 25
     camera_reset_requested = True
     save_state_to_disk()
