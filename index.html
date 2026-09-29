@@ -186,18 +186,15 @@
                     <div class="calib-settings">
                         <div class="calib-grid">
                             <div class="calib-group">
-                                <label>{{ t('videoSettings') }}</label>
-                                <button class="btn" @click="openCameraSettings">{{ t('driverDialog') }}</button>
-                            </div>
-                            <div class="calib-group">
                                 <label>{{ t('camSelect') }}</label>
-                                <div style="display:flex; gap:5px;">
+                                <div style="display:flex; gap:5px; margin-bottom:5px;">
                                     <select v-model.number="camParams.camera_index" @change="setCamera(camParams.camera_index)" style="flex:1">
                                         <option :value="0">{{ t('camDefault') }}</option>
                                         <option v-for="c in availableCameras" :key="c" :value="c">Camera {{c}}</option>
                                     </select>
                                     <button class="btn" @click="refreshCameras" :title="t('scan')"><i class="fas fa-sync"></i></button>
                                 </div>
+                                <button class="btn" @click="openCameraSettings">{{ t('driverDialog') }}</button>
                             </div>
 
                             <div class="calib-group">
@@ -205,16 +202,19 @@
                                 <input type="range" min="0" max="255" v-model.number="camParams.threshold" @change="updateCamParams">
                             </div>
                             <div class="calib-group">
-                                <label>{{ t('mergeDist') }}{{ camParams.merge_distance }}px</label>
-                                <input type="range" min="0" max="70" v-model.number="camParams.merge_distance" @change="updateCamParams">
-                            </div>
-                            <div class="calib-group">
-                                <label>{{ t('minArea') }}{{ camParams.min_area }}</label>
-                                <input type="range" min="1" max="500" v-model.number="camParams.min_area" @change="updateCamParams">
-                            </div>
-                            <div class="calib-group">
-                                <label>{{ t('maxArea') }}{{ camParams.max_area }}</label>
-                                <input type="range" min="100" max="10000" v-model.number="camParams.max_area" @change="updateCamParams">
+                                <label>{{ t('blobSize') }}</label>
+                                <div class="calib-inner">
+                                    <label>{{ t('mergeDist') }}{{ camParams.merge_distance }}px</label>
+                                    <input type="range" min="0" max="70" v-model.number="camParams.merge_distance" @change="updateCamParams">
+                                </div>
+                                <div class="calib-inner">
+                                    <label>{{ t('minArea') }}{{ camParams.min_area }}</label>
+                                    <input type="range" min="1" max="500" v-model.number="camParams.min_area" @change="updateCamParams">
+                                </div>
+                                <div class="calib-inner">
+                                    <label>{{ t('maxArea') }}{{ camParams.max_area }}</label>
+                                    <input type="range" min="100" max="10000" v-model.number="camParams.max_area" @change="updateCamParams">
+                                </div>
                             </div>
                             
                             <div class="calib-group">
