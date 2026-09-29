@@ -230,19 +230,23 @@
 
                             <div class="calib-group">
                                 <label>{{ t('camPosSliders') }}</label>
-                                <div class="cam-pos-sliders">
-                                    <div class="cam-pos-slider-row">
-                                        <label>{{ t('camPosX') }}</label>
+                                <div class="calib-inner">
+                                    <label>{{ t('camPosX') }}</label>
+                                    <div style="display:flex; gap:5px; align-items:center;">
                                         <input type="range" min="-2.0" max="3.0" step="0.1" v-model.number="camParams.cam_pos_x" @change="updateCamParams" style="flex:1">
                                         <input type="number" step="0.1" v-model.number="camParams.cam_pos_x" @change="updateCamParams" class="cam-pos-num" :title="t('camPosBigInput')">
                                     </div>
-                                    <div class="cam-pos-slider-row">
-                                        <label>{{ t('camPosY') }}</label>
+                                </div>
+                                <div class="calib-inner">
+                                    <label>{{ t('camPosY') }}</label>
+                                    <div style="display:flex; gap:5px; align-items:center;">
                                         <input type="range" min="-2.0" max="3.0" step="0.1" v-model.number="camParams.cam_pos_y" @change="updateCamParams" style="flex:1">
                                         <input type="number" step="0.1" v-model.number="camParams.cam_pos_y" @change="updateCamParams" class="cam-pos-num" :title="t('camPosBigInput')">
                                     </div>
-                                    <div class="cam-pos-slider-row">
-                                        <label>{{ t('parallax') }}</label>
+                                </div>
+                                <div class="calib-inner">
+                                    <label>{{ t('parallax') }}</label>
+                                    <div style="display:flex; gap:5px; align-items:center;">
                                         <input type="range" min="-0.1" max="0.1" step="0.001" v-model.number="camParams.parallax_strength" @change="updateCamParams" style="flex:1">
                                         <input type="number" step="0.001" v-model.number="camParams.parallax_strength" @change="updateCamParams" class="cam-pos-num" :title="t('camPosBigInput')">
                                     </div>
@@ -250,17 +254,21 @@
                             </div>
 
                             <div class="calib-group">
-                                <label>{{ t('hotspot') }}{{ camParams.hotspot_compensation }}</label>
-                                <input type="range" min="0" max="1" step="0.1" v-model.number="camParams.hotspot_compensation" @change="updateCamParams">
+                                <label>{{ t('imageOpt') }}</label>
+                                <div class="calib-inner">
+                                    <label>{{ t('hotspot') }}{{ camParams.hotspot_compensation }}</label>
+                                    <input type="range" min="0" max="1" step="0.1" v-model.number="camParams.hotspot_compensation" @change="updateCamParams">
+                                </div>
+                                <div class="calib-inner">
+                                    <label>{{ t('smoothing') }}{{ camParams.smoothing }}</label>
+                                    <input type="range" min="0" max="0.95" step="0.05" v-model.number="camParams.smoothing" @change="updateCamParams">
+                                </div>
+                                <div style="display:flex; gap:10px; margin-top:4px;">
+                                    <label style="font-size:0.8em;"><input type="checkbox" v-model="camParams.flip_x" @change="updateCamParams"> {{ t('flipX') }}</label>
+                                    <label style="font-size:0.8em;"><input type="checkbox" v-model="camParams.flip_y" @change="updateCamParams"> {{ t('flipY') }}</label>
+                                </div>
                             </div>
-                            <div class="calib-group">
-                                <label>{{ t('smoothing') }}{{ camParams.smoothing }}</label>
-                                <input type="range" min="0" max="0.95" step="0.05" v-model.number="camParams.smoothing" @change="updateCamParams">
-                            </div>
-                            <div class="calib-group" style="display:flex; align-items:center; justify-content:space-around;">
-                                <label><input type="checkbox" v-model="camParams.flip_x" @change="updateCamParams"> {{ t('flipX') }}</label>
-                                <label><input type="checkbox" v-model="camParams.flip_y" @change="updateCamParams"> {{ t('flipY') }}</label>
-                            </div>
+
                             <div class="calib-group">
                                 <label>{{ t('reset') }}</label>
                                 <button class="btn danger" @click="resetCamera">{{ t('resetCam') }}</button>
