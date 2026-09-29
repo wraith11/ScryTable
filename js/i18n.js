@@ -127,6 +127,7 @@ export const translations = {
     threshold: "Threshold (Binarize): ",
     mergeDist: "Merge Distance: ",
     minArea: "Min Area: ", maxArea: "Max Area: ",
+    blobSize: "Blob-Größe", imageOpt: "Bildoptimierung", trackingSmooth: "Tracking-Glättung",
     parallax: "Parallax Stärke: ",
     camPosX: "Cam Pos X: ", camPosY: "Cam Pos Y: ", camPosView: "Kamera-Position", camPosSliders: "Position & Parallax", camPosHint: "Kreuz ziehen, um die Kameraposition zu setzen (grün = Spielfeld)", camPosBigInput: "Eingabe für größere Werte",
     hotspot: "Hotspot: ", smoothing: "Glättung: ",
