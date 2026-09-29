@@ -76,7 +76,7 @@ state = {
         'smoothing': 0.2,
         'hotspot_compensation': 0.0,
         'merge_distance': 25,
-        'parallax_strength': 0.0,
+        'parallax_height_ratio': 0.0,
         'cam_pos_x': 0.5, 
         'cam_pos_y': 0.5
     },
